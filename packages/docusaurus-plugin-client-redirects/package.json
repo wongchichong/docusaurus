@@ -1,7 +1,7 @@
 {
   "name": "@docusaurus/plugin-client-redirects",
   "version": "3.7.0",
-  "description": "Client redirects plugin for Docusaurus.",
+  "description": "Client-side redirects plugin for Docusaurus, compatible with Woby.js sites.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -32,10 +32,9 @@
     "@docusaurus/types": "3.7.0"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "keywords": ["docusaurus", "plugin", "redirects", "client-side", "woby"]
 }

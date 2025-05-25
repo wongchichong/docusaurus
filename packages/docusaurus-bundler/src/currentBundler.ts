@@ -5,145 +5,65 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import webpack from 'webpack';
-import WebpackBar from 'webpackbar';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import {importRspack} from './importFaster';
-import type {FasterModule} from './importFaster';
-import type {CurrentBundler, DocusaurusConfig} from '@docusaurus/types';
+// THIS ENTIRE FILE IS PART OF A DEPRECATED PACKAGE. DO NOT USE.
+// Project is moving to Vite.
 
-// We inject a site config slice because the Rspack flag might change place
-type SiteConfigSlice = {
-  future: {
-    experimental_faster: Pick<
-      DocusaurusConfig['future']['experimental_faster'],
-      'rspackBundler'
-    >;
-  };
-};
+const deprecatedMessage = 'The @docusaurus/bundler package (and its bundler utils) is deprecated. Project is moving to Vite.';
+const warnDeprecated = () => console.warn(deprecatedMessage);
 
-function isRspack(siteConfig: SiteConfigSlice): boolean {
-  return siteConfig.future.experimental_faster.rspackBundler;
+export async function getCurrentBundler() { 
+  warnDeprecated(); 
+  // Return a mock bundler object that does nothing or indicates deprecation
+  return { 
+    name: 'deprecated-bundler', 
+    instance: (() => { 
+      warnDeprecated(); 
+      // Simulate a very basic Webpack/Rspack-like instance structure
+      return { 
+        // Provide a mock for any properties/methods that might be accessed
+        // For example, if other parts of Docusaurus try to access specific plugins
+        // from the bundler instance (like CssExtractRspackPlugin).
+        // This is a minimal mock; more might be needed if errors arise.
+        CssExtractRspackPlugin: { loader: 'null-loader' }, 
+        CopyRspackPlugin: class DeprecatedCopyPlugin { apply() { warnDeprecated(); } },
+        ProgressPlugin: class DeprecatedProgressPlugin { apply() { warnDeprecated(); } },
+        experiments: { globalTrace: { register: async () => {}, cleanup: async () => {} } },
+        // Mock the constructor call itself for `compiler = currentBundler.instance(configs);`
+        // This function will be what `currentBundler.instance` resolves to.
+        // It needs to return an object with `run` and `close` methods.
+        Gefahr: () => { // Using a unique name to avoid conflicts if `instance` was a class
+          warnDeprecated();
+          return {
+            run: (cb: any) => cb(null, { toJson: () => ({ errors: [], warnings: [] }), hasErrors: () => false, hasWarnings: () => false, close: (closeCb: any) => closeCb() }),
+            close: (cb: any) => cb()
+          } as any; 
+        }
+      } as any; 
+    }) as any
+  }; 
 }
 
-export async function getCurrentBundler({
-  siteConfig,
-}: {
-  siteConfig: SiteConfigSlice;
-}): Promise<CurrentBundler> {
-  if (isRspack(siteConfig)) {
-    return {
-      name: 'rspack',
-      instance: (await importRspack()) as unknown as typeof webpack,
-    };
-  }
-  return {
-    name: 'webpack',
-    instance: webpack,
-  };
+export function getCurrentBundlerAsRspack() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage); // This function implies using Rspack, which is part of the deprecated bundler.
 }
 
-export function getCurrentBundlerAsRspack({
-  currentBundler,
-}: {
-  currentBundler: CurrentBundler;
-}): FasterModule['rspack'] {
-  if (currentBundler.name !== 'rspack') {
-    throw new Error(
-      `Can't getCurrentBundlerAsRspack() because current bundler is ${currentBundler.name}`,
-    );
-  }
-  return currentBundler.instance as unknown as FasterModule['rspack'];
+export async function getCSSExtractPlugin() { 
+  warnDeprecated(); 
+  return { loader: 'null-loader' } as any; 
 }
 
-export async function getCSSExtractPlugin({
-  currentBundler,
-}: {
-  currentBundler: CurrentBundler;
-}): Promise<typeof MiniCssExtractPlugin> {
-  if (currentBundler.name === 'rspack') {
-    // @ts-expect-error: this exists only in Rspack
-    return currentBundler.instance.CssExtractRspackPlugin;
-  }
-  return MiniCssExtractPlugin;
+export async function getCopyPlugin() { 
+  warnDeprecated(); 
+  return class DeprecatedCopyPlugin { apply() { warnDeprecated(); } } as any; 
 }
 
-export async function getCopyPlugin({
-  currentBundler,
-}: {
-  currentBundler: CurrentBundler;
-}): Promise<typeof CopyWebpackPlugin> {
-  if (currentBundler.name === 'rspack') {
-    // @ts-expect-error: this exists only in Rspack
-    return currentBundler.instance.CopyRspackPlugin;
-  }
-  return CopyWebpackPlugin;
+export async function getProgressBarPlugin() { 
+  warnDeprecated(); 
+  return class DeprecatedProgressBarPlugin { apply() { warnDeprecated(); } } as any; 
 }
 
-export async function getProgressBarPlugin({
-  currentBundler,
-}: {
-  currentBundler: CurrentBundler;
-}): Promise<typeof WebpackBar> {
-  if (currentBundler.name === 'rspack') {
-    const rspack = getCurrentBundlerAsRspack({currentBundler});
-    class CustomRspackProgressPlugin extends rspack.ProgressPlugin {
-      constructor({name, color = 'green'}: {name?: string; color?: string}) {
-        // Unfortunately rspack.ProgressPlugin does not have name/color options
-        // See https://rspack.dev/plugins/webpack/progress-plugin
-        super({
-          prefix: name,
-          template: `● {prefix:.bold} {bar:50.${color}/white.dim} ({percent}%) {wide_msg:.dim}`,
-          progressChars: '██',
-        });
-      }
-    }
-    return CustomRspackProgressPlugin as unknown as typeof WebpackBar;
-  }
-
-  return WebpackBar;
-}
-
-export async function registerBundlerTracing({
-  currentBundler,
-}: {
-  currentBundler: CurrentBundler;
-}): Promise<() => Promise<void>> {
-  if (currentBundler.name === 'rspack') {
-    const Rspack = await importRspack();
-
-    // See https://rspack.dev/contribute/development/profiling
-    // File can be opened with https://ui.perfetto.dev/
-    if (process.env.DOCUSAURUS_RSPACK_TRACE) {
-      // We use the env variable as the "filter" attribute
-      // See values here: https://rspack.dev/contribute/development/tracing#tracing-filter
-      let filter = process.env.DOCUSAURUS_RSPACK_TRACE;
-
-      if (filter === 'true' || filter === '1') {
-        // Default value recommended by the Rspack team
-        // It's also what the CLI uses for the "overview" preset:
-        // https://github.com/web-infra-dev/rspack/blob/v1.3.10/packages/rspack-cli/src/utils/profile.ts
-        filter = 'info';
-      }
-
-      await Rspack.experiments.globalTrace.register(
-        filter,
-        'chrome',
-        './rspack-tracing.json',
-      );
-
-      console.info(`Rspack tracing registered, filter=${filter}`);
-
-      return async () => {
-        await Rspack.experiments.globalTrace.cleanup();
-        console.log(`Rspack tracing cleaned up, filter=${filter}`);
-      };
-    }
-  }
-
-  // We don't support Webpack tracing at the moment
-  return async () => {
-    // noop
-  };
+export async function registerBundlerTracing() { 
+  warnDeprecated(); 
+  return async () => { warnDeprecated(); }; 
 }

@@ -5,73 +5,51 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import logger from '@docusaurus/logger';
-import type {
-  MinimizerOptions as JsMinimizerOptions,
-  CustomOptions,
-} from 'terser-webpack-plugin';
-import type {MinimizerOptions as CssMinimizerOptions} from 'css-minimizer-webpack-plugin';
+// THIS ENTIRE FILE IS PART OF A DEPRECATED PACKAGE. DO NOT USE.
+// Project is moving to Vite.
 
-export type FasterModule = Awaited<typeof import('@docusaurus/faster')>;
+const deprecatedMessage = 'The @docusaurus/bundler package (and its faster import utils) is deprecated. Project is moving to Vite.';
+const warnDeprecated = () => console.warn(deprecatedMessage);
 
-async function importFaster(): Promise<FasterModule> {
-  return import('@docusaurus/faster');
+// Return minimal mocks or throw errors to indicate deprecation.
+// These functions were originally async and imported from '@docusaurus/faster'.
+// Since '@docusaurus/faster' itself has been Woby-adapted but this bundler is deprecated,
+// these shims should indicate that this pathway is no longer valid.
+
+export async function importRspack() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage); 
 }
 
-async function ensureFaster(): Promise<FasterModule> {
-  try {
-    return await importFaster();
-  } catch (error) {
-    throw new Error(
-      `To enable Docusaurus Faster options, your site must add the ${logger.name(
-        '@docusaurus/faster',
-      )} package as a dependency.`,
-      {cause: error},
-    );
-  }
+export async function importSwcLoader() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage);
 }
 
-export async function importRspack(): Promise<FasterModule['rspack']> {
-  const faster = await ensureFaster();
-  return faster.rspack;
+export async function importGetSwcLoaderOptions() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage);
 }
 
-export async function importSwcLoader(): Promise<string> {
-  const faster = await ensureFaster();
-  return faster.swcLoader;
+export async function importSwcJsMinimizerOptions() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage);
 }
 
-export async function importGetSwcLoaderOptions(): Promise<
-  FasterModule['getSwcLoaderOptions']
-> {
-  const faster = await ensureFaster();
-  return faster.getSwcLoaderOptions;
+export async function importSwcHtmlMinifier() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage);
 }
 
-export async function importSwcJsMinimizerOptions(): Promise<
-  JsMinimizerOptions<CustomOptions>
-> {
-  const faster = await ensureFaster();
-  return faster.getSwcJsMinimizerOptions() as JsMinimizerOptions<CustomOptions>;
+export async function importGetBrowserslistQueries() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage);
 }
 
-export async function importSwcHtmlMinifier(): Promise<
-  ReturnType<FasterModule['getSwcHtmlMinifier']>
-> {
-  const faster = await ensureFaster();
-  return faster.getSwcHtmlMinifier();
+export async function importLightningCssMinimizerOptions() {
+  warnDeprecated();
+  throw new Error(deprecatedMessage);
 }
 
-export async function importGetBrowserslistQueries(): Promise<
-  FasterModule['getBrowserslistQueries']
-> {
-  const faster = await ensureFaster();
-  return faster.getBrowserslistQueries;
-}
-
-export async function importLightningCssMinimizerOptions(): Promise<
-  CssMinimizerOptions<CustomOptions>
-> {
-  const faster = await ensureFaster();
-  return faster.getLightningCssMinimizerOptions() as CssMinimizerOptions<CustomOptions>;
-}
+export type { FasterModule } from '@docusaurus/faster'; // Type re-export might still be needed by consumers
+// However, since the functions that use FasterModule are removed/deprecated, this type's utility here is minimal.
