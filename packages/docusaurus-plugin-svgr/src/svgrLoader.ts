@@ -33,6 +33,8 @@ const DefaultSVGRConfig: SVGRConfig = {
   svgo: true,
   svgoConfig: DefaultSVGOConfig,
   titleProp: true,
+  jsxRuntime: 'automatic', // Added for Woby JSX
+  jsxImportSource: 'woby',  // Added for Woby JSX
 };
 
 type Params = {isServer: boolean; svgrConfig: SVGRConfig};

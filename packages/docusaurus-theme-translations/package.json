@@ -31,5 +31,6 @@
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "keywords": ["docusaurus", "translations", "i18n", "theme", "woby"]
 }

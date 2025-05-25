@@ -1,7 +1,7 @@
 {
   "name": "@docusaurus/plugin-svgr",
   "version": "3.7.0",
-  "description": "SVGR plugin for Docusaurus.",
+  "description": "SVGR plugin for Docusaurus, configured to output Woby.js compatible SVG components.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -28,10 +28,10 @@
     "webpack": "^5.88.1"
   },
   "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "woby": ">=1.0.0"
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "keywords": ["docusaurus", "plugin", "svgr", "svg", "woby", "components"]
 }
