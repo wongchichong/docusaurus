@@ -5,6 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+// @ts-nocheck
+// React-specific rule (related to Docusaurus <Heading> component), disabled for Woby conversion.
+
+/*
 import {createRule} from '../util';
 import type {TSESTree} from '@typescript-eslint/types/dist/ts-estree';
 
@@ -44,3 +48,21 @@ export default createRule<Options, MessageIds>({
     };
   },
 });
+*/
+
+export default {
+  name: 'prefer-docusaurus-heading',
+  meta: {
+    type: 'problem',
+    docs: {
+      description:
+        '[DEPRECATED] enforce using Docusaurus theme Heading component instead of any <hn> tag',
+      recommended: false,
+    },
+    messages: {
+      headings:
+        '[DEPRECATED] Do not use any of the `<hn>` tags for headings. Use the `<Heading />` component from `@theme/Heading` instead.',
+    },
+  },
+  create: () => ({}), // No-op
+};

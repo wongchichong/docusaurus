@@ -1,11 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Docusaurus",
+  "display": "Docusaurus Woby Base",
   "docs": "https://docusaurus.io/docs/typescript-support",
   "compilerOptions": {
     "allowJs": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
+    "jsxImportSource": "woby",
     "target": "ES2022",
     "lib": ["ES2022", "DOM"],
     "moduleResolution": "bundler",

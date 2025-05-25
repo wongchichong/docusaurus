@@ -5,6 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+// @ts-nocheck
+// React-specific rule (related to Docusaurus <Translate> component and i18n system), disabled for Woby conversion.
+
+/*
 import {isTextLabelChild, createRule} from '../util';
 import type {TSESTree} from '@typescript-eslint/types/dist/ts-estree';
 
@@ -77,3 +81,21 @@ export default createRule<Options, MessageIds>({
     };
   },
 });
+*/
+
+export default {
+  name: 'no-untranslated-text',
+  meta: {
+    type: 'suggestion',
+    docs: {
+      description:
+        '[DEPRECATED] enforce text labels in JSX to be wrapped by translate calls',
+      recommended: false,
+    },
+    messages: {
+      translateChildren:
+        '[DEPRECATED] All text labels in JSX should be wrapped by translate calls',
+    },
+  },
+  create: () => ({}), // No-op
+};

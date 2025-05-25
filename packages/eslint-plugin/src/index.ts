@@ -9,23 +9,23 @@ import rules from './rules';
 
 // @ts-expect-error: TODO try to remove later
 export = {
-  rules,
+  rules, // This is now an empty object
   configs: {
     recommended: {
       plugins: ['@docusaurus'],
       rules: {
-        '@docusaurus/string-literal-i18n-messages': 'error',
-        '@docusaurus/no-html-links': 'warn',
-        '@docusaurus/prefer-docusaurus-heading': 'warn',
+        // '@docusaurus/string-literal-i18n-messages': 'error', // Disabled
+        // '@docusaurus/no-html-links': 'warn', // Disabled
+        // '@docusaurus/prefer-docusaurus-heading': 'warn', // Disabled
       },
     },
     all: {
       plugins: ['@docusaurus'],
       rules: {
-        '@docusaurus/string-literal-i18n-messages': 'error',
-        '@docusaurus/no-untranslated-text': 'warn',
-        '@docusaurus/no-html-links': 'warn',
-        '@docusaurus/prefer-docusaurus-heading': 'warn',
+        // '@docusaurus/string-literal-i18n-messages': 'error', // Disabled
+        // '@docusaurus/no-untranslated-text': 'warn', // Disabled
+        // '@docusaurus/no-html-links': 'warn', // Disabled
+        // '@docusaurus/prefer-docusaurus-heading': 'warn', // Disabled
       },
     },
   },

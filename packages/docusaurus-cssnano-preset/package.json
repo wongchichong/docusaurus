@@ -1,7 +1,7 @@
 {
   "name": "@docusaurus/cssnano-preset",
   "version": "3.7.0",
-  "description": "Advanced cssnano preset for maximum optimization.",
+  "description": "[DEPRECATED] Advanced cssnano preset for maximum optimization. Not for use with Tailwind CSS.",
   "main": "lib/index.js",
   "license": "MIT",
   "publishConfig": {
@@ -17,9 +17,6 @@
     "directory": "packages/docusaurus-cssnano-preset"
   },
   "dependencies": {
-    "cssnano-preset-advanced": "^6.1.2",
-    "postcss": "^8.4.38",
-    "postcss-sort-media-queries": "^5.2.0",
     "tslib": "^2.6.0"
   },
   "devDependencies": {
@@ -27,5 +24,7 @@
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "deprecated": true,
+  "keywords": ["deprecated", "cssnano", "postcss", "docusaurus"]
 }

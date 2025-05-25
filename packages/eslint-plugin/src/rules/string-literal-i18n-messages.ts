@@ -5,6 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+// @ts-nocheck
+// React-specific rule (related to Docusaurus <Translate> component and i18n system), disabled for Woby conversion.
+
+/*
 import {
   isTextLabelChild,
   isStringWithoutExpressions,
@@ -74,3 +78,22 @@ export default createRule<Options, MessageIds>({
     };
   },
 });
+*/
+
+export default {
+  name: 'string-literal-i18n-messages',
+  meta: {
+    type: 'problem',
+    docs: {
+      description: '[DEPRECATED] enforce translate APIs to be called on plain text labels',
+      recommended: 'error',
+    },
+    messages: {
+      translateChildren:
+        '[DEPRECATED] <Translate> children must be hardcoded strings. You can have in-string dynamic placeholders using the values prop.',
+      translateArg:
+        '[DEPRECATED] translation message must be a hardcoded string. You can have in-string dynamic placeholders using the values argument.',
+    },
+  },
+  create: () => ({}), // No-op
+};

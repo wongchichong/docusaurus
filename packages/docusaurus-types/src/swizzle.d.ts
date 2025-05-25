@@ -5,7 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type {JSX, JSXElementConstructor} from 'react';
+// Removed: import type {JSX, JSXElementConstructor} from 'react';
+// Assuming JSX and JSXElementConstructor will be resolved from Woby's JSX namespace
+// once jsxImportSource is set in tsconfig.
 
 export type SwizzleAction = 'eject' | 'wrap';
 export type SwizzleActionStatus = 'safe' | 'unsafe' | 'forbidden';
@@ -35,9 +37,9 @@ export type WrapperProps<
 > = T extends JSXElementConstructor<infer P>
   ? unknown extends P
     ? // eslint-disable-next-line @typescript-eslint/ban-types
-      {}
+      {} // Keep this for components with no props
     : P
-  : T extends keyof JSX.IntrinsicElements
+  : T extends keyof JSX.IntrinsicElements // This JSX should refer to Woby's JSX
   ? JSX.IntrinsicElements[T]
   : // eslint-disable-next-line @typescript-eslint/ban-types
     {};

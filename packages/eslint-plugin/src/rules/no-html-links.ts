@@ -5,6 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+// @ts-nocheck
+// React-specific rule (related to Docusaurus <Link> component), disabled for Woby conversion.
+
+/*
 import {createRule} from '../util';
 import type {TSESTree} from '@typescript-eslint/types/dist/ts-estree';
 
@@ -101,3 +105,19 @@ export default createRule<Options, MessageIds>({
     };
   },
 });
+*/
+
+export default {
+  name: 'no-html-links',
+  meta: {
+    type: 'problem',
+    docs: {
+      description: '[DEPRECATED] enforce using Docusaurus Link component instead of <a> tag',
+      recommended: false,
+    },
+    messages: {
+      link: `[DEPRECATED] Do not use an \`<a>\` element to navigate. Use the \`<Link />\` component from \`@docusaurus/Link\` instead.`,
+    },
+  },
+  create: () => ({}), // No-op
+};
