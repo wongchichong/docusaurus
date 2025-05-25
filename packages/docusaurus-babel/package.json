@@ -1,7 +1,7 @@
 {
   "name": "@docusaurus/babel",
   "version": "3.7.0",
-  "description": "Docusaurus package for Babel-related utils.",
+  "description": "Babel utilities and preset for Docusaurus, configured for Woby.js.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
@@ -46,5 +46,6 @@
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "keywords": ["docusaurus", "babel", "preset", "woby"]
 }

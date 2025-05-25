@@ -1,7 +1,7 @@
 {
   "name": "@docusaurus/module-type-aliases",
   "version": "3.7.0",
-  "description": "Docusaurus module type aliases.",
+  "description": "Docusaurus module type aliases, adapted for Woby.js.",
   "types": "./src/index.d.ts",
   "publishConfig": {
     "access": "public"
@@ -13,16 +13,12 @@
   },
   "dependencies": {
     "@docusaurus/types": "3.7.0",
-    "@types/history": "^4.7.11",
-    "@types/react": "*",
-    "@types/react-router-config": "*",
-    "@types/react-router-dom": "*",
-    "react-helmet-async": "npm:@slorber/react-helmet-async@1.3.0",
-    "react-loadable": "npm:@docusaurus/react-loadable@6.0.0"
+    "@types/history": "^4.7.11"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-dom": "*"
+    "woby": ">=1.0.0",
+    "@docusaurus/types": "*"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": ["docusaurus", "types", "aliases", "woby"]
 }

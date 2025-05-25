@@ -42,6 +42,7 @@ function getTransformOptions(isServer: boolean): TransformOptions {
         require.resolve('@babel/preset-react'),
         {
           runtime: 'automatic',
+          importSource: 'woby', // Added for Woby JSX
         },
       ],
       require.resolve('@babel/preset-typescript'),

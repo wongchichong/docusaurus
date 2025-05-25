@@ -1,93 +1,51 @@
-# Remark plugin npm2yarn
+# `@docusaurus/remark-plugin-npm2yarn` (DEPRECATED)
 
-## Motivation:
+**This Remark plugin is deprecated and its functionality has been removed.**
 
-Transforms npm bash command code blocks to Docusaurus tabs:
+It was originally designed to transform `npm` command examples in Markdown code blocks into interactive tabs showing equivalents for `yarn`, `pnpm`, and `bun`. This was achieved using the `npm-to-yarn` library and Docusaurus-specific Tab components.
 
-The following (remove the `//`):
+## Current Status
 
-````bash
-// ```bash npm2yarn
-// npm run build
-// ```
+As part of a migration towards a Woby.js-based system and to simplify the Markdown processing pipeline, the core `npm-to-yarn` conversion logic and the automatic generation of Docusaurus Tabs have been removed from this plugin. The plugin is now a no-op and does not transform code blocks.
+
+## Recommendation
+
+If you need to display command examples for multiple package managers (npm, pnpm, yarn, bun), you should now manually write these out using appropriate Markdown structures, such as Docusaurus Tabs if your theme supports them (or an equivalent Woby component if applicable).
+
+Example of manual tabs for commands:
+
+````md
+```mdx
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="package-managers">
+  <TabItem value="npm" label="npm">
+  ```bash
+  npm install my-package
+  npm run start
+  ```
+  </TabItem>
+  <TabItem value="pnpm" label="pnpm" default>
+  ```bash
+  pnpm add my-package
+  pnpm start
+  ```
+  </TabItem>
+  <TabItem value="yarn" label="Yarn">
+  ```bash
+  yarn add my-package
+  yarn start
+  ```
+  </TabItem>
+  <TabItem value="bun" label="Bun">
+  ```bash
+  bun add my-package
+  bun run start
+  ```
+  </TabItem>
+</Tabs>
+```
 ````
 
-Becomes:
-
-![npm2yarn tabs example](./example.png)
-
-**Note**: it only works when used with Docusaurus themes that have the `Tabs` and `TabItems` components.
-
-## Install
-
-```bash
-npm install @docusaurus/remark-plugin-npm2yarn
-```
-
-It is a Remark plugin, **not a Docusaurus plugin**, so you have to install it as a Remark plugin in the config of your Docusaurus plugins.
-
-```js
-module.exports = {
-  presets: [
-    [
-      '@docusaurus/preset-classic',
-      {
-        docs: {
-          // ...
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
-          ],
-        },
-        blog: {
-          // ...
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
-          ],
-        },
-        pages: {
-          // ...
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
-          ],
-        },
-        // ...
-      },
-    ],
-  ],
-  // ...
-};
-```
-
-## Options
-
-| Property | Type | Default | Description |
-| --- | --- | --- | --- |
-| `sync` | `boolean` | `false` | Syncing tab choices (Yarn and npm). See https://docusaurus.io/docs/markdown-features/#syncing-tab-choices for details. |
-| `converters` | `array` | `['yarn', 'pnpm', 'bun']` | The list of converters to use. The order of the converters is important, as the first converter will be used as the default choice. |
-
-## Custom converters
-
-In case you want to convert npm commands to something else than `yarn`, `pnpm` or `bun`, you can use custom converters:
-
-```ts
-type CustomConverter = [name: string, cb: (npmCode: string) => string];
-```
-
-```ts
-{
-  remarkPlugins: [
-    [
-      require('@docusaurus/remark-plugin-npm2yarn'),
-      {
-        sync: true,
-        converters: [
-          'yarn',
-          'pnpm',
-          'bun',
-          ['Turbo', (code) => code.replace(/npm/g, 'turbo')],
-        ],
-      },
-    ],
-  ];
-}
-```
+This approach provides explicit control over the displayed commands.

@@ -41,12 +41,13 @@ declare module '@generated/registry' {
 }
 
 declare module '@generated/routes' {
-  import type {RouteConfig as RRRouteConfig} from 'react-router-config';
-  import type Loadable from 'react-loadable';
+  // import type {RouteConfig as RRRouteConfig} from 'react-router-config'; // Woby: React-router specific
+  // import type Loadable from 'react-loadable'; // Woby: React-loadable specific
 
-  type RouteConfig = RRRouteConfig & {
+  // Woby: Simplified route config, actual component type depends on Woby's lazy loading
+  type RouteConfig = /* RRRouteConfig */ any & {
     path: string;
-    component: ReturnType<typeof Loadable>;
+    component: any; // ReturnType<typeof Loadable>;
   };
   const routes: RouteConfig[];
   export default routes;
@@ -84,57 +85,57 @@ declare module '@theme-original/*';
 declare module '@theme-init/*';
 
 declare module '@theme/Error' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
   import type {FallbackParams} from '@docusaurus/ErrorBoundary';
 
   export interface Props extends FallbackParams {}
-  export default function Error(props: Props): ReactNode;
+  export default function Error(props: Props): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@theme/Layout' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
   export interface Props {
-    readonly children?: ReactNode;
+    readonly children?: JSX.Element; // Woby: JSX.Element
   }
-  export default function Layout(props: Props): ReactNode;
+  export default function Layout(props: Props): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@theme/Loading' {
-  import type {ReactNode} from 'react';
-  import type {LoadingComponentProps} from 'react-loadable';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
+  // import type {LoadingComponentProps} from 'react-loadable'; // Woby: React-loadable specific
 
-  export default function Loading(props: LoadingComponentProps): ReactNode;
+  export default function Loading(props: any /* LoadingComponentProps */): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@theme/NotFound' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
-  export default function NotFound(): ReactNode;
+  export default function NotFound(): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@theme/Root' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
   export interface Props {
-    readonly children: ReactNode;
+    readonly children: JSX.Element; // Woby: JSX.Element
   }
-  export default function Root({children}: Props): ReactNode;
+  export default function Root({children}: Props): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@theme/ThemeProvider' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
   export interface Props {
-    readonly children: ReactNode;
+    readonly children: JSX.Element; // Woby: JSX.Element
   }
-  export default function ThemeProvider({children}: Props): ReactNode;
+  export default function ThemeProvider({children}: Props): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@theme/SiteMetadata' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
-  export default function SiteMetadata(): ReactNode;
+  export default function SiteMetadata(): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@docusaurus/constants' {
@@ -142,40 +143,40 @@ declare module '@docusaurus/constants' {
 }
 
 declare module '@docusaurus/ErrorBoundary' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
   export type FallbackParams = {
     readonly error: Error;
     readonly tryAgain: () => void;
   };
 
-  export type FallbackFunction = (params: FallbackParams) => ReactNode;
+  export type FallbackFunction = (params: FallbackParams) => JSX.Element; // Woby: JSX.Element
 
   export interface Props {
     readonly fallback?: FallbackFunction;
-    readonly children: ReactNode;
+    readonly children: JSX.Element; // Woby: JSX.Element
   }
-  export default function ErrorBoundary(props: Props): ReactNode;
+  export default function ErrorBoundary(props: Props): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@docusaurus/Head' {
-  import type {ReactNode} from 'react';
-  import type {HelmetProps} from 'react-helmet-async';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
+  // import type {HelmetProps} from 'react-helmet-async'; // Woby: react-helmet-async specific
 
-  export type Props = HelmetProps & {children: ReactNode};
+  export type Props = /* HelmetProps */ any & {children: JSX.Element}; // Woby: JSX.Element
 
-  export default function Head(props: Props): ReactNode;
+  export default function Head(props: Props): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@docusaurus/Link' {
-  import type {CSSProperties, ComponentProps, ReactNode} from 'react';
-  import type {NavLinkProps as RRNavLinkProps} from 'react-router-dom';
+  // import type {CSSProperties, ComponentProps, ReactNode} from 'react'; // Woby: use Woby types
+  // import type {NavLinkProps as RRNavLinkProps} from 'react-router-dom'; // Woby: React-router specific
 
-  type NavLinkProps = Partial<RRNavLinkProps>;
+  type NavLinkProps = Partial<any /* RRNavLinkProps */>;
   export type Props = NavLinkProps &
-    ComponentProps<'a'> & {
+    /* ComponentProps<'a'> */ any & { // Woby: Use Woby's intrinsic element props if available
       readonly className?: string;
-      readonly style?: CSSProperties;
+      readonly style?: any; // CSSProperties; // Woby: Use Woby's style type
       readonly isNavLink?: boolean;
       readonly to?: string;
       readonly href?: string;
@@ -184,18 +185,18 @@ declare module '@docusaurus/Link' {
       /** Escape hatch in case broken links check doesn't make sense. */
       readonly 'data-noBrokenLinkCheck'?: boolean;
     };
-  export default function Link(props: Props): ReactNode;
+  export default function Link(props: Props): JSX.Element; // Woby: JSX.Element
 }
 
 declare module '@docusaurus/Interpolate' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
   export type ExtractInterpolatePlaceholders<Str extends string> =
     Str extends `${string}{${infer Key}}${infer Rest}`
       ? Key | ExtractInterpolatePlaceholders<Rest>
       : never;
 
-  export type InterpolateValues<Str extends string, Value extends ReactNode> = {
+  export type InterpolateValues<Str extends string, Value extends JSX.Element | string | number> = { // Woby: JSX.Element
     [key in ExtractInterpolatePlaceholders<Str>]: Value;
   };
 
@@ -205,24 +206,24 @@ declare module '@docusaurus/Interpolate' {
     values?: InterpolateValues<Str, string | number>,
   ): string;
 
-  // If values contain any ReactNode, the return is a ReactNode
-  export function interpolate<Str extends string, Value extends ReactNode>(
+  // If values contain any JSX.Element, the return is a JSX.Element
+  export function interpolate<Str extends string, Value extends JSX.Element | string | number>( // Woby: JSX.Element
     text: Str,
     values?: InterpolateValues<Str, Value>,
-  ): ReactNode;
+  ): JSX.Element | string; // Woby: JSX.Element or string
 
   export type InterpolateProps<Str extends string> = {
     children: Str;
-    values?: InterpolateValues<Str, ReactNode>;
+    values?: InterpolateValues<Str, JSX.Element | string | number>; // Woby: JSX.Element
   };
 
   export default function Interpolate<Str extends string>(
     props: InterpolateProps<Str>,
-  ): ReactNode;
+  ): JSX.Element | string; // Woby: JSX.Element or string
 }
 
 declare module '@docusaurus/Translate' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
   import type {InterpolateValues} from '@docusaurus/Interpolate';
 
   // TS type to ensure that at least one of id or message is always provided
@@ -251,23 +252,29 @@ declare module '@docusaurus/Translate' {
     Str
   > & {
     description?: string;
-    values?: InterpolateValues<Str, ReactNode>;
+    values?: InterpolateValues<Str, JSX.Element | string | number>; // Woby: JSX.Element
   };
 
   export default function Translate<Str extends string>(
     props: TranslateProps<Str>,
-  ): ReactNode;
+  ): JSX.Element | string; // Woby: JSX.Element or string
 }
 
 declare module '@docusaurus/router' {
   // eslint-disable-next-line import/no-extraneous-dependencies
-  export {useHistory, useLocation, Redirect, matchPath} from 'react-router-dom';
+  // export {useHistory, useLocation, Redirect, matchPath} from 'react-router-dom'; // Woby: React-router specific
+  // Woby: Define Woby equivalents or remove if not applicable
+  export const useHistory: any;
+  export const useLocation: any;
+  export const Redirect: any;
+  export const matchPath: any;
 }
 
 declare module '@docusaurus/useIsomorphicLayoutEffect' {
-  import {useLayoutEffect} from 'react';
-
-  export = useLayoutEffect;
+  // import {useLayoutEffect} from 'react'; // Woby: React specific hook
+  // Woby: Provide Woby's equivalent if available, or a generic type
+  const useIsomorphicLayoutEffect: any; // typeof useLayoutEffect;
+  export = useIsomorphicLayoutEffect;
 }
 
 declare module '@docusaurus/useDocusaurusContext' {
@@ -324,22 +331,22 @@ declare module '@docusaurus/ExecutionEnvironment' {
 }
 
 declare module '@docusaurus/ComponentCreator' {
-  import type Loadable from 'react-loadable';
+  // import type Loadable from 'react-loadable'; // Woby: React-loadable specific
 
   export default function ComponentCreator(
     path: string,
     hash: string,
-  ): ReturnType<typeof Loadable>;
+  ): any; // ReturnType<typeof Loadable>; // Woby: Use Woby's lazy component type
 }
 
 declare module '@docusaurus/BrowserOnly' {
-  import type {ReactNode} from 'react';
+  // import type {ReactNode} from 'react'; // Woby: use JSX.Element
 
   export interface Props {
-    readonly children?: () => ReactNode;
-    readonly fallback?: ReactNode;
+    readonly children?: () => JSX.Element; // Woby: JSX.Element
+    readonly fallback?: JSX.Element; // Woby: JSX.Element
   }
-  export default function BrowserOnly(props: Props): ReactNode | null;
+  export default function BrowserOnly(props: Props): JSX.Element | null; // Woby: JSX.Element
 }
 
 declare module '@docusaurus/isInternalUrl' {
@@ -353,8 +360,8 @@ declare module '@docusaurus/Noop' {
 
 declare module '@docusaurus/renderRoutes' {
   // eslint-disable-next-line import/no-extraneous-dependencies
-  import {renderRoutes} from 'react-router-config';
-
+  // import {renderRoutes} from 'react-router-config'; // Woby: React-router specific
+  const renderRoutes: any; // Woby: Define Woby equivalent or remove
   export default renderRoutes;
 }
 
@@ -390,13 +397,12 @@ declare module '@docusaurus/useGlobalData' {
 //  unfortunately looks complicated in practice
 //  see https://x.com/sebastienlorber/status/1859543512661832053
 declare module '*.svg' {
-  import type {ComponentType, SVGProps} from 'react';
+  // import type {ComponentType, SVGProps} from 'react'; // Woby: use Woby types
 
-  const ReactComponent: ComponentType<
-    SVGProps<SVGSVGElement> & {title?: string}
-  >;
+  // Woby: Define SVG component type, assuming it's a functional component returning JSX.Element
+  const SvgComponent: (props: any /* SVGProps<SVGSVGElement> & {title?: string} */) => JSX.Element;
 
-  export default ReactComponent;
+  export default SvgComponent;
 }
 
 declare module '*.module.css' {
@@ -410,19 +416,21 @@ declare module '*.css' {
 }
 
 declare module '*.md' {
-  import type {ComponentType} from 'react';
+  // import type {ComponentType} from 'react'; // Woby: use Woby types
 
-  const ReactComponent: ComponentType<unknown>;
+  // Woby: Define MD component type
+  const MdComponent: (props: any) => JSX.Element; //ComponentType<unknown>;
 
-  export default ReactComponent;
+  export default MdComponent;
 }
 
 declare module '*.mdx' {
-  import type {ComponentType} from 'react';
+  // import type {ComponentType} from 'react'; // Woby: use Woby types
+  
+  // Woby: Define MDX component type
+  const MdxComponent: (props: any) => JSX.Element; //ComponentType<unknown>;
 
-  const ReactComponent: ComponentType<unknown>;
-
-  export default ReactComponent;
+  export default MdxComponent;
 }
 
 interface Window {
@@ -430,5 +438,6 @@ interface Window {
     prefetch: (url: string) => false | Promise<void[]>;
     preload: (url: string) => false | Promise<void[]>;
   };
-  docusaurusRoot?: import('react-dom/client').Root;
+  // docusaurusRoot?: import('react-dom/client').Root; // Woby: React-DOM specific
+  docusaurusRoot?: any; // Woby: Define Woby's root type if applicable
 }

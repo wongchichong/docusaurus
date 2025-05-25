@@ -1,7 +1,7 @@
 {
   "name": "@docusaurus/remark-plugin-npm2yarn",
   "version": "3.7.0",
-  "description": "Remark plugin for converting npm commands to Yarn commands as tabs.",
+  "description": "[DEPRECATED] Remark plugin, originally for converting npm commands to Yarn/pnpm/Bun commands in Tabs. Functionality removed.",
   "main": "lib/index.js",
   "publishConfig": {
     "access": "public"
@@ -18,7 +18,6 @@
   "license": "MIT",
   "dependencies": {
     "mdast-util-mdx": "^3.0.0",
-    "npm-to-yarn": "^3.0.0",
     "tslib": "^2.6.0",
     "unified": "^11.0.3",
     "unist-util-visit": "^5.0.0"
@@ -31,5 +30,7 @@
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "deprecated": true,
+  "keywords": ["docusaurus", "remark", "plugin", "npm", "yarn", "tabs", "deprecated"]
 }
