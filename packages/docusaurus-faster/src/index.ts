@@ -30,6 +30,7 @@ export const getSwcLoaderOptions = ({
       transform: {
         react: {
           runtime: 'automatic',
+          importSource: 'woby', // Added for Woby JSX
         },
       },
     },

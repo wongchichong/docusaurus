@@ -1,7 +1,7 @@
 {
   "name": "create-docusaurus",
   "version": "3.7.0",
-  "description": "Create Docusaurus apps easily.",
+  "description": "Create Docusaurus apps easily, now generating Woby.js based templates.",
   "type": "module",
   "repository": {
     "type": "git",
@@ -38,5 +38,6 @@
   },
   "engines": {
     "node": ">=18.0"
-  }
+  },
+  "keywords": ["docusaurus", "static-site-generator", "woby", "create-app", "cli"]
 }

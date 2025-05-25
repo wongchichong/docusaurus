@@ -1,7 +1,7 @@
 {
   "name": "@docusaurus/faster",
   "version": "3.7.0",
-  "description": "Docusaurus experimental package exposing new modern dependencies to make the build faster.",
+  "description": "Docusaurus experimental package for faster builds using SWC, Rspack, and LightningCSS, adapted for Woby.js.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -33,5 +33,6 @@
   },
   "peerDependencies": {
     "@docusaurus/types": "*"
-  }
+  },
+  "keywords": ["docusaurus", "webpack", "rspack", "swc", "build", "performance", "woby"]
 }

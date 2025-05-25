@@ -180,11 +180,14 @@ async function createProcessorFactory() {
       remarkPlugins,
       rehypePlugins,
       recmaPlugins,
-      providerImportSource: '@mdx-js/react',
+      // Configure MDX to use Woby's JSX runtime
+      jsxRuntime: 'automatic', 
+      jsxImportSource: 'woby',
+      providerImportSource: 'woby',
     };
 
     const mdxProcessor = createMdxProcessor({
-      ...processorOptions,
+      ...processorOptions, // This now includes the Woby JSX settings
       remarkRehypeOptions: options.markdownConfig.remarkRehypeOptions,
       format,
     });

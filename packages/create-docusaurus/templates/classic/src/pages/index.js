@@ -1,27 +1,26 @@
 import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-
-import Heading from '@theme/Heading';
+import HomepageFeatures from '../components/HomepageFeatures'; // Adjusted path
 import styles from './index.module.css';
 
+// Mock siteConfig as it's no longer available from Docusaurus context
+const mockSiteConfig = {
+  title: 'My Woby Site',
+  tagline: 'Woby sites are cool!',
+};
+
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        <h1 className="hero__title">{mockSiteConfig.title}</h1>
+        <p className="hero__subtitle">{mockSiteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <Link
+          {/* Replace Docusaurus Link with a standard anchor or Woby link component */}
+          <a
             className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
+            href="/docs/intro"> {/* Placeholder link */}
+            Woby Tutorial - 5min ⏱️
+          </a>
         </div>
       </div>
     </header>
@@ -29,15 +28,16 @@ function HomepageHeader() {
 }
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
+  // Layout component is removed; directly return page structure
+  // The <title> and <meta name="description"> that Layout handled would
+  // need to be managed by Woby's equivalent or a Head component.
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+    <>
+      {/* Woby equivalent of <Head><title>...</title></Head> would go here if needed */}
       <HomepageHeader />
       <main>
         <HomepageFeatures />
       </main>
-    </Layout>
+    </>
   );
 }
